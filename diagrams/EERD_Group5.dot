@@ -1,0 +1,163 @@
+// Gym & Fitness Centre Management System - EERD (Group 5)
+// Render: dot -Tpng -Gdpi=200 diagrams/EERD_Group5.dot -o images/EERD_Group5.png
+digraph EERD {
+  graph [rankdir=TB, splines=polyline, nodesep=0.55, ranksep=0.9, pad=0.3, bgcolor="white", fontname="Verdana"];
+  node  [shape=plain, fontname="Verdana", fontsize=11];
+  edge  [dir=both, color="#555555", penwidth=1.3, fontname="Verdana", fontsize=8.5, arrowsize=1.1];
+
+  // ---------- Membership ----------
+  Member [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#2b5f8c">
+      <TR><TD BGCOLOR="#2b5f8c"><FONT COLOR="white"><B>Member</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>MemberID</U></B> (PK)</TD></TR>
+      <TR><TD ALIGN="LEFT">FirstName</TD></TR>
+      <TR><TD ALIGN="LEFT">LastName</TD></TR>
+      <TR><TD ALIGN="LEFT">Email</TD></TR>
+      <TR><TD ALIGN="LEFT">Phone</TD></TR>
+      <TR><TD ALIGN="LEFT">DateOfBirth</TD></TR>
+      <TR><TD ALIGN="LEFT">JoinDate</TD></TR>
+      <TR><TD ALIGN="LEFT"><I>Age (derived)</I></TD></TR>
+      <TR><TD ALIGN="LEFT">MembershipTypeID (FK)</TD></TR>
+    </TABLE>>];
+
+  MembershipType [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#2b5f8c">
+      <TR><TD BGCOLOR="#2b5f8c"><FONT COLOR="white"><B>MembershipType</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>MembershipTypeID</U></B> (PK)</TD></TR>
+      <TR><TD ALIGN="LEFT">TypeName</TD></TR>
+      <TR><TD ALIGN="LEFT">DurationMonths</TD></TR>
+      <TR><TD ALIGN="LEFT">Price</TD></TR>
+      <TR><TD ALIGN="LEFT">Description</TD></TR>
+    </TABLE>>];
+
+  // ---------- Payments ----------
+  PaymentMethod [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#7a5a2b">
+      <TR><TD BGCOLOR="#7a5a2b"><FONT COLOR="white"><B>PaymentMethod</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>PaymentMethodID</U></B> (PK)</TD></TR>
+      <TR><TD ALIGN="LEFT">MethodName</TD></TR>
+      <TR><TD ALIGN="LEFT">ProcessorName</TD></TR>
+      <TR><TD ALIGN="LEFT">ProcessingFeePercent</TD></TR>
+    </TABLE>>];
+
+  Payment [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#7a5a2b">
+      <TR><TD BGCOLOR="#7a5a2b"><FONT COLOR="white"><B>Payment</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>PaymentID</U></B> (PK)</TD></TR>
+      <TR><TD ALIGN="LEFT">MemberID (FK)</TD></TR>
+      <TR><TD ALIGN="LEFT">PaymentMethodID (FK)</TD></TR>
+      <TR><TD ALIGN="LEFT">Amount</TD></TR>
+      <TR><TD ALIGN="LEFT">PaymentDate</TD></TR>
+      <TR><TD ALIGN="LEFT">Notes</TD></TR>
+    </TABLE>>];
+
+  // ---------- Trainers (specialization) ----------
+  Trainer [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#8b2a4b">
+      <TR><TD BGCOLOR="#8b2a4b"><FONT COLOR="white"><B>Trainer</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>TrainerID</U></B> (PK)</TD></TR>
+      <TR><TD ALIGN="LEFT">FirstName</TD></TR>
+      <TR><TD ALIGN="LEFT">LastName</TD></TR>
+      <TR><TD ALIGN="LEFT">Email</TD></TR>
+      <TR><TD ALIGN="LEFT">Phone</TD></TR>
+      <TR><TD ALIGN="LEFT">HireDate</TD></TR>
+      <TR><TD ALIGN="LEFT">TrainerType</TD></TR>
+    </TABLE>>];
+
+  ISA [shape=triangle, label="ISA\nd", fontsize=9, style=filled, fillcolor="#f3dde3", color="#8b2a4b",
+       width=0.8, height=0.65, fixedsize=true];
+
+  PersonalTrainer [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#8b2a4b">
+      <TR><TD BGCOLOR="#b5657f"><FONT COLOR="white"><B>PersonalTrainer</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>TrainerID</U></B> (PK, FK)</TD></TR>
+      <TR><TD ALIGN="LEFT">HourlyRate</TD></TR>
+      <TR><TD ALIGN="LEFT">MaxClientsPerWeek</TD></TR>
+    </TABLE>>];
+
+  GroupInstructor [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#8b2a4b">
+      <TR><TD BGCOLOR="#b5657f"><FONT COLOR="white"><B>GroupInstructor</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>TrainerID</U></B> (PK, FK)</TD></TR>
+      <TR><TD ALIGN="LEFT">CertificationLevel</TD></TR>
+      <TR><TD ALIGN="LEFT">GroupSizeLimit</TD></TR>
+    </TABLE>>];
+
+  // ---------- Classes and scheduling ----------
+  Class [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#2b5f8c">
+      <TR><TD BGCOLOR="#2b5f8c"><FONT COLOR="white"><B>Class</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>ClassID</U></B> (PK)</TD></TR>
+      <TR><TD ALIGN="LEFT">ClassName</TD></TR>
+      <TR><TD ALIGN="LEFT">Description</TD></TR>
+      <TR><TD ALIGN="LEFT">Category</TD></TR>
+      <TR><TD ALIGN="LEFT">DurationMinutes</TD></TR>
+      <TR><TD ALIGN="LEFT">TrainerID (FK)</TD></TR>
+    </TABLE>>];
+
+  Room [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#2e8b5a">
+      <TR><TD BGCOLOR="#2e8b5a"><FONT COLOR="white"><B>Room</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>RoomID</U></B> (PK)</TD></TR>
+      <TR><TD ALIGN="LEFT">RoomName</TD></TR>
+      <TR><TD ALIGN="LEFT">Location</TD></TR>
+      <TR><TD ALIGN="LEFT">Capacity</TD></TR>
+    </TABLE>>];
+
+  // weak entity: double border, composite key = owner key + partial key
+  ClassSchedule [label=<
+    <TABLE BORDER="2" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#8b4a2b"><TR><TD>
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#8b4a2b">
+      <TR><TD BGCOLOR="#8b4a2b"><FONT COLOR="white"><B>ClassSchedule (weak)</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>ClassID</U></B> (PK, FK)</TD></TR>
+      <TR><TD ALIGN="LEFT"><B><I><U>ScheduleID</U></I></B> (PK, partial key)</TD></TR>
+      <TR><TD ALIGN="LEFT">RoomID (FK)</TD></TR>
+      <TR><TD ALIGN="LEFT">SessionDate</TD></TR>
+      <TR><TD ALIGN="LEFT">StartTime</TD></TR>
+      <TR><TD ALIGN="LEFT"><I>EndTime (derived)</I></TD></TR>
+    </TABLE></TD></TR></TABLE>>];
+
+  // associative entity: double border, composite key
+  Enrollment [label=<
+    <TABLE BORDER="2" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#8b4a2b"><TR><TD>
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#8b4a2b">
+      <TR><TD BGCOLOR="#8b4a2b"><FONT COLOR="white"><B>Enrollment (assoc.)</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>MemberID</U></B> (PK, FK)</TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>ClassID</U></B> (PK, FK)</TD></TR>
+      <TR><TD ALIGN="LEFT"><B><U>ScheduleID</U></B> (PK, FK)</TD></TR>
+      <TR><TD ALIGN="LEFT">EnrollmentDate</TD></TR>
+      <TR><TD ALIGN="LEFT">AttendanceStatus</TD></TR>
+    </TABLE></TD></TR></TABLE>>];
+
+  // ---------- layout ----------
+  { rank=same; Member; Trainer; Class; }
+  { rank=same; MembershipType; PaymentMethod; ISA; Room; }
+  { rank=same; Payment; PersonalTrainer; GroupInstructor; ClassSchedule; }
+
+  // ---------- relationships ----------
+  // arrowtail = end at the first entity, arrowhead = end at the second entity
+  // teetee = exactly one (mandatory), crowodot = zero or many (optional)
+  Member -> MembershipType [label="has (M:1)\ntotal on Member", arrowtail=crowodot, arrowhead=teetee];
+  Member -> Payment        [label="makes (1:M)\ntotal on Payment", arrowtail=teetee, arrowhead=crowodot];
+  PaymentMethod -> Payment [label="used for (1:M)\ntotal on Payment", arrowtail=teetee, arrowhead=crowodot];
+  Trainer -> Class         [label="leads (1:M)\npartial on Trainer,\ntotal on Class", arrowtail=teetee, arrowhead=crowodot];
+  Class -> ClassSchedule   [label="scheduled as (1:M)\nidentifying,\ntotal on ClassSchedule", arrowtail=teetee, arrowhead=crowodot, penwidth=3];
+  Room -> ClassSchedule    [label="hosted in (1:M)\ntotal on ClassSchedule", arrowtail=teetee, arrowhead=crowodot];
+  Member -> Enrollment     [label="enrolls (1:M)\ntotal on Enrollment", arrowtail=teetee, arrowhead=crowodot];
+  ClassSchedule -> Enrollment [label="includes (1:M)\ntotal on Enrollment", arrowtail=teetee, arrowhead=crowodot];
+
+  // specialization: disjoint (d), partial (single line)
+  Trainer -> ISA [dir=none, color="#8b2a4b", label="disjoint (d),\npartial"];
+  ISA -> PersonalTrainer [dir=none, color="#8b2a4b"];
+  ISA -> GroupInstructor [dir=none, color="#8b2a4b"];
+
+  // fix left-to-right order within each row
+  Member -> Trainer [style=invis, dir=none];
+  Trainer -> Class [style=invis, dir=none];
+  Payment -> PersonalTrainer [style=invis, dir=none];
+  PersonalTrainer -> GroupInstructor [style=invis, dir=none];
+  GroupInstructor -> ClassSchedule [style=invis, dir=none];
+  MembershipType -> PaymentMethod [style=invis, dir=none];
+  PaymentMethod -> ISA [style=invis, dir=none];
+  ISA -> Room [style=invis, dir=none];
+}
