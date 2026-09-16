@@ -119,10 +119,8 @@ The full data types, definitions and validation rules are in the [data dictionar
 
 The full team contribution table (names, roles and specific tasks) is in [`docs/Group5_DataDictionary_TeamContributions.pdf`](docs/Group5_DataDictionary_TeamContributions.pdf).
 
-| Team member | Role |
-|---|---|
-| [Team member 1 name] | Project Lead / Business Analyst |
-| [Team member 2 name] | Data Modeller |
-| [Team member 3 name] | EERD Designer |
-| [Team member 4 name] | Normalization Analyst |
-| [Team member 5 name] | Documentation Lead |
+| Team member | Role | Specific tasks |
+|---|---|---|
+| Altesse Imena | Project Lead / Data Modeller | Created the GitHub repo, wrote business rules, defined entities, attributes, keys, relationships and cardinalities |
+| Melody Shih | EERD Designer / Normalization Analyst | Built the EERD in draw.io and exported the image; applied normalization to 3NF and documented decisions |
+| Noah Jobse | Documentation Lead | Wrote the data dictionary and validation rules, the README, and produced the PDF |
