@@ -13,7 +13,6 @@
 **Files in this repository**
 
 - [`images/EERD_Group5.png`](images/EERD_Group5.png) — EERD image
-- [`diagrams/EERD_Group5.dot`](diagrams/EERD_Group5.dot) — Graphviz source of the EERD
 - [`docs/Gym_DB_Design_Report_Group5.pdf`](docs/Gym_DB_Design_Report_Group5.pdf) — Report including the data dictionary and team contributions
 - `README.md` — Business rules, design and rationale
 
